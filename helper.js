@@ -1,8 +1,13 @@
-import { client } from './index';
+import { client } from './index.js';
 export async function getMovieById(id) {
   return await client.db("b30wd").collection("movies")
     .findOne({ id: id });
 }
+export async function getUserByName(username) {
+  return await client.db("b30wd").collection("users")
+    .findOne({ username:username});
+}
+
 export async function getAllMovies() {
   await client.db("b30wd").collection("movies")
     .find({})
@@ -19,6 +24,10 @@ export async function createMovies(data) {
 }
 export async function updateMovie(id, updateData) {
   return client.db("b30wd")
-    .collection("movies")
+    .collection("movies") 
     .updateOne({ id: id }, { $set: updateData });
+}
+export async function createUser(data) {
+  return await client.db("b30wd")
+    .collection("users").insertOne(data);
 }
